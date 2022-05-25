@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ordered as cakeOrdered } from "../cake/cakeSlice";
 
-const icecreamSlice = createSlice({
-  name: "icecream",
+const iceCreamSlice = createSlice({
+  name: "iceCream",
   initialState: {
     numOfIceCreams: 10,
   },
@@ -26,5 +26,5 @@ const icecreamSlice = createSlice({
   },
 });
 
-export default icecreamSlice.reducer;
-export const { ordered, restocked } = icecreamSlice.actions;
+export default iceCreamSlice.reducer;
+export const { ordered, restocked } = iceCreamSlice.actions;
