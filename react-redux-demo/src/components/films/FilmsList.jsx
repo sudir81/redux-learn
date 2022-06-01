@@ -10,7 +10,7 @@ const FilmsList = ({ films }) => {
     <div style={{ width: "30%" }}>
       {films?.map((film) => (
         <div
-          key={film.id}
+          key={`${film.id}-${film.title}`}
           style={{
             height: "50px",
             backgroundColor: "lightblue",

@@ -1,8 +1,16 @@
-import React from "react";
-import { connect } from "react-redux";
-// import { fetchFilmById } from "../../redux/actions/films.action";
-
+import React, { useEffect } from "react";
+import { connect, useDispatch } from "react-redux";
+import { fetchFilmById } from "../../redux/actions/films.action";
+import { v4 as uuidv4 } from "uuid";
 const Film = ({ film }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(fetchFilmById({ filmId: film?.id }));
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <>
       {film && (
@@ -21,33 +29,33 @@ const Film = ({ film }) => {
               <label>Created Date : </label>
               <span>{film.created}</span>
             </div>
+            {film.producers && (
+              <>
+                <div>
+                  <label>Producers : </label>
+                  {film.producers.map((producer) => (
+                    <span key={uuidv4()}>{producer}</span>
+                  ))}
+                </div>
+                <div>
+                  <label>Opening Crawl : </label>
+                  <span>{film.openingCrawl}</span>
+                </div>
+              </>
+            )}
           </div>
-          {film.producers && (
-            <>
-              <div>
-                <label>Producers : </label>
-                {film.producers.map((producer) => (
-                  <span>{producer}</span>
-                ))}
-              </div>
-              <div>
-                <label>Opening Crawl : </label>
-                <span>{film.openingCrawl}</span>
-              </div>
-            </>
-          )}
         </>
       )}
     </>
   );
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  const {
-    film: { id },
-  } = ownProps;
-  // dispatch(fetchFilmById({ filmId: id }));
-  return {};
-};
+// const mapDispatchToProps = (dispatch, ownProps) => {
+//   const {
+//     film: { id },
+//   } = ownProps;
+//   dispatch(fetchFilmById({ filmId: id }));
+//   return {};
+// };
 
-export default connect(null, mapDispatchToProps)(Film);
+export default Film;
